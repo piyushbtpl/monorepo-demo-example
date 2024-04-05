@@ -10,6 +10,6 @@ export class CourseDTO {
   price: number;
   @ApiProperty()
   hasCertification: boolean;
-  @ApiProperty()
+  @ApiProperty({ default: null })
   createdBy: Types.ObjectId;
 }

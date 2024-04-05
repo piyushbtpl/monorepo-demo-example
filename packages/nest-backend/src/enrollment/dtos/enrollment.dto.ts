@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
 export class EnrollmentDTO {
-  @ApiProperty()
+  @ApiProperty({ default: null })
   user: Types.ObjectId;
 
-  @ApiProperty()
+  @ApiProperty({ default: null })
   course: Types.ObjectId;
 
   @ApiProperty()

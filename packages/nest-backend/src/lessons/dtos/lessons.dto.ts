@@ -8,8 +8,8 @@ export class LessonsDTO {
   content: string;
   @ApiProperty()
   category: string;
-  @ApiProperty()
+  @ApiProperty({ default: null })
   course: Types.ObjectId;
-  @ApiProperty()
+  @ApiProperty({ default: null })
   createdBy: Types.ObjectId;
 }

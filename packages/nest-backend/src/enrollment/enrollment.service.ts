@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Enrollment } from './schemas/enrollment.schema';
 import { EnrollmentDTO } from './dtos/enrollment.dto';
+import { User } from 'src/user/schemas/user.schema';
+import { Course } from 'src/course/schemas/course.schema';
 
 @Injectable()
 export class EnrollmentService {
@@ -12,10 +14,43 @@ export class EnrollmentService {
 
   async create(createDto: EnrollmentDTO): Promise<Enrollment> {
     const created = new this.enrollmentModel(createDto);
-    return created.save();
+    const newRes = await created.save();
+
+    const res = await newRes.populate([
+      {
+        path: 'user',
+        model: User.name,
+        select: '_id name',
+        strictPopulate: false,
+      },
+      {
+        path: 'course',
+        model: Course.name,
+        select: '_id name description price hasCertification',
+        strictPopulate: false,
+      },
+    ]);
+
+    return res;
   }
 
   async findAll(): Promise<Enrollment[]> {
-    return this.enrollmentModel.find().exec();
+    return this.enrollmentModel
+      .find()
+      .populate([
+        {
+          path: 'user',
+          model: User.name,
+          select: '_id name',
+          strictPopulate: false,
+        },
+        {
+          path: 'course',
+          model: Course.name,
+          select: '_id name description price hasCertification',
+          strictPopulate: false,
+        },
+      ])
+      .exec();
   }
 }
