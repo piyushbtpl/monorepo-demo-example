@@ -1,3 +1,21 @@
+## Installation
+
+```bash
+$ npm install -g lerna
+```
+
+## Running the app
+
+```bash
+# frontend
+$ npm run fe
+
+# frontend
+$ npm run be
+
+# both run parallel
+$ npm run both
+```
 
 # MonoRepo Demo Example
 
