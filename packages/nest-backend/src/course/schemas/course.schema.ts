@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { User } from 'src/user/schemas/user.schema';
 
 export type CourseDocument = HydratedDocument<Course>;
 
@@ -24,6 +25,9 @@ export class Course {
     type: Boolean,
   })
   hasCertification: boolean;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  createdBy: User;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
